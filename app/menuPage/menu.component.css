@@ -1,0 +1,16 @@
+StackLayout {
+    margin-left: 30;
+    margin-right: 30;
+    padding-bottom: 15;
+    background-color: white;
+  }
+  Button, Image {
+    margin-left: 8%;
+    margin-right: 8%;
+    margin-bottom: 3%;
+    
+  }
+  Image {
+    width: 80%;
+    margin-top:10%;
+  }

@@ -1,0 +1,8 @@
+<Label text="EventsList"></Label>
+<ScrollView>
+    <ListView [items]="events">
+            <ng-template let-item="item">
+                <Label [text]="item.name"></Label>
+            </ng-template>
+    </ListView>
+</ScrollView>
