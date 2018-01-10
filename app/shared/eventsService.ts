@@ -38,10 +38,9 @@ export class EventsService {
                         this.month = this.month==12?1:++this.month;
                         return this.getEventsByDate(this.page,this.year,this.month);
                     }
-                    else{                            
-                        console.log(this.newEvents.length, this.oldEvents.length);
+                    else{ 
                         this.pushEventsToFile();
-                        return Observable.empty();                
+                        return Observable.empty();               
                     }
                 }
                 else{  
@@ -54,18 +53,17 @@ export class EventsService {
     }
 
     getEventsByDate(page, year, month){
-        console.log(page, year, month);
+        console.log(month.toString());
         var monthString = month<10?"0"+month.toString():month.toString();
         return this.http.get(`https://www.tivolivredenburg.nl/wp-admin/admin-ajax.php?action=get_events&page=${page}&maand=${year.toString()+monthString}&category=pop`)
             .map(response => response.json());
     }
 
     getOldEvents(){
-        this.folder.getFile(this.fileName).readText()
+        let file = this.folder.getFile(this.fileName);
+        file.readText()
             .then(res => {
-                console.log("trying");
                 if(res.length > 0){
-                    console.log("Parsing");
                     this.oldEvents = JSON.parse(res);
                 }
             }).catch(err => {
@@ -80,7 +78,6 @@ export class EventsService {
     }
 
     emptyFile(){
-        
         this.folder.getFile(this.fileName).remove().then(()=> console.log("removed"));
     }
 
@@ -90,8 +87,7 @@ export class EventsService {
             var timeText = val.day.split(" ");                     
             var day = timeText[1]; 
             var newEvent = true;
-            if(this.oldEvents.length > 0){
-                console.log("comparing");
+            if(this.oldEvents!=null){
                 for(let old of this.oldEvents){
                     if(old.year == this.year && old.month == this.month 
                         && old.name == name && old.day == day){

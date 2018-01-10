@@ -39,4 +39,4 @@ import { NativeScriptHttpModule } from "nativescript-angular/http";
 /*
 Pass your application module to the bootstrapModule function located in main.ts to start your app
 */
-export class AppModule { }
+export class AppModule {}
