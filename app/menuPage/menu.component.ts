@@ -1,5 +1,6 @@
 import { Component} from "@angular/core";
 import { Router } from "@angular/router";
+import { EventsService } from "../shared/eventsService";
 
 @Component({
     selector: "menu",
@@ -7,9 +8,12 @@ import { Router } from "@angular/router";
     styleUrls: ["./menuPage/menu.component.css"]
 })
 export class MenuComponent {
-    constructor(private router: Router){}
+    constructor(private router: Router, private eventsService: EventsService){}
     getNewEvents(){
         this.router.navigate(["/newEvents"]);
     }
     showHistory(){}
+    clearHistory(){
+        this.eventsService.emptyFile();
+    }
 }

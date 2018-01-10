@@ -8,6 +8,6 @@ export class EventsListComponent implements OnChanges{
     @Input() events: any[];
 
     ngOnChanges(){
-        console.log(this.events.length);
+        //console.log(this.events.length);
     }
 }
