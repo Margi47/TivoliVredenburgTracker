@@ -1,8 +1,9 @@
 <Label text="EventsList"></Label>
-<ScrollView>
-    <ListView [items]="events">
-            <ng-template let-item="item">
+<ListView [items]="events">
+        <ng-template let-item="item">
+            <StackLayout orientation="horizontal">
+                <Label [text]="item.year + '-' + item.month + '-' + item.day"></Label>    
                 <Label [text]="item.name"></Label>
-            </ng-template>
-    </ListView>
-</ScrollView>
+            </StackLayout>
+        </ng-template>
+</ListView>
