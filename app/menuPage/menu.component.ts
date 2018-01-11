@@ -1,6 +1,6 @@
 import { Component} from "@angular/core";
 import { Router } from "@angular/router";
-import { EventsService } from "../shared/eventsService";
+import { FileSystemService } from "../shared/fileSystemService";
 
 @Component({
     selector: "menu",
@@ -8,7 +8,7 @@ import { EventsService } from "../shared/eventsService";
     styleUrls: ["./menuPage/menu.component.css"]
 })
 export class MenuComponent {
-    constructor(private router: Router, private eventsService: EventsService){}
+    constructor(private router: Router, private fileService: FileSystemService){}
     getNewEvents(){
         this.router.navigate(["/newEvents"]);
     }
@@ -18,6 +18,6 @@ export class MenuComponent {
     }
 
     clearHistory(){
-        this.eventsService.emptyFile();
+        this.fileService.emptyFile();
     }
 }

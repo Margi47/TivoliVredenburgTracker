@@ -6,6 +6,8 @@ import "rxjs/add/operator/map";
 import "rxjs/add/observable/of";
 import "rxjs/add/observable/empty";
 import "rxjs/add/operator/switchMap";
+import "rxjs/add/operator/mergeMap";
+import "rxjs/add/operator/last";
 import { knownFolders, File, Folder } from "file-system";
 
 import { MusEvent } from "./musEvent";
@@ -24,9 +26,9 @@ export class FileSystemService {
 
     getNewEvents(): Observable<MusEvent[]>{
         //getting all events, then getting old events, comparing, writing to file
-        return this.webService.getAllEvents().switchMap(newEvents =>{
+        return this.webService.getAllEvents().last().mergeMap(newEvents =>{
             return this.getHistory().map(records => {
-                if (records.length == 0){
+                if (records.length != 0){
                     let eventsToAdd: MusEvent[] = [];
                     for(let newEv of newEvents){
                         let isNew = true;

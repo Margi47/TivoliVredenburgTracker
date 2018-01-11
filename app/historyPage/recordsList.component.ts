@@ -1,5 +1,4 @@
 import { Component, Input} from "@angular/core";
-import { EventsService } from "../shared/eventsService";
 import { Observable } from 'rxjs/Observable';
 
 @Component({
