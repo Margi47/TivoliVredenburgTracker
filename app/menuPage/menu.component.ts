@@ -12,7 +12,11 @@ export class MenuComponent {
     getNewEvents(){
         this.router.navigate(["/newEvents"]);
     }
-    showHistory(){}
+
+    showHistory(){
+        this.router.navigate(["/history"]);
+    }
+
     clearHistory(){
         this.eventsService.emptyFile();
     }

@@ -6,7 +6,10 @@ import { AppComponent } from "./app.component";
 import { MenuComponent } from "../menuPage/menu.component";
 import { EventsComponent } from "../newEventsPage/events.component";
 import { EventsListComponent } from "../newEventsPage/events-list.component";
-import { EventsService } from "./eventsService";
+import { HistoryComponent } from "../historyPage/history.component";
+import { RecordsListComponent } from "../historyPage/recordsList.component";
+import { WebService } from "./webService";
+import { FileSystemService } from "./fileSystemService";
 
 // Uncomment and add to NgModule imports if you need to use two-way binding
 // import { NativeScriptFormsModule } from "nativescript-angular/forms";
@@ -27,10 +30,13 @@ import { NativeScriptHttpModule } from "nativescript-angular/http";
         AppComponent,
         MenuComponent,
         EventsComponent,
-        EventsListComponent
+        EventsListComponent,
+        HistoryComponent,
+        RecordsListComponent
     ],
     providers: [
-        EventsService
+        WebService,
+        FileSystemService
     ],
     schemas: [
         NO_ERRORS_SCHEMA

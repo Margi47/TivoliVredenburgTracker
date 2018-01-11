@@ -1,0 +1,15 @@
+<ListView [items]="records">
+        <ng-template let-item="item">
+            <StackLayout orientation="verticsl">
+                <Label [text]="item.checkDate"></Label> 
+                <ListView [items]="item.musEvents">
+                    <ng-template let-mus="item">
+                        <StackLayout orientation="horozontal">
+                            <Label [text]="mus.year + '-' + mus.month + '-' + mus.day"></Label>
+                            <Label [text]="mus.name"></Label>
+                        </StackLayout>            
+                    </ng-template>
+                </ListView>       
+            </StackLayout>
+        </ng-template>
+</ListView>

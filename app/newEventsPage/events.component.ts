@@ -1,5 +1,5 @@
 import { Component, OnInit} from "@angular/core";
-import { EventsService } from "../shared/eventsService";
+import { FileSystemService } from "../shared/fileSystemService";
 import { Observable } from 'rxjs/Observable';
 
 @Component({
@@ -9,10 +9,9 @@ import { Observable } from 'rxjs/Observable';
 })
 export class EventsComponent implements OnInit{
     events$: Observable<any>;
-    constructor(private eventsService: EventsService){
-    }
+    constructor(private fileService: FileSystemService){}
 
     ngOnInit(){
-        this.events$ = this.eventsService.getAllEvents();
+        this.events$ = this.fileService.getNewEvents();
     }
 }

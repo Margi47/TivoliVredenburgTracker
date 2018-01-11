@@ -1,0 +1,63 @@
+import { Injectable } from "@angular/core";
+import { Http, Headers, Response } from "@angular/http";
+import { Observable } from "rxjs/Observable";
+import "rxjs/add/operator/expand";
+import "rxjs/add/operator/map";
+import "rxjs/add/observable/of";
+import "rxjs/add/observable/empty";
+
+import { MusEvent } from "./musEvent";
+
+@Injectable()
+export class WebService {
+    constructor(private http: Http) {}
+
+    getAllEvents(): Observable<MusEvent[]>{     
+        let newEvents: MusEvent[] = [];
+        let page = 1;
+        let curDate = new Date();
+        let year = curDate.getFullYear();
+        let month = curDate.getMonth()+1; //month numbers start from 0
+        let request$ = this.getEventsByDate(page, year, month);
+
+        return request$
+            .expand(response => {
+                if(response == null){  
+                    if(page >1){ //if current month is not empty,switching to next one 
+                        page = 1;
+                        year = month==12?++year:year;
+                        month = month==12?1:++month;
+                        return this.getEventsByDate(page,year,month);
+                    }
+                    else{ //no more data available
+                        return Observable.empty();               
+                    }
+                }
+                else{  
+                    for(let val of response){
+                        let name = val.title;
+                        let timeText = val.day.split(" ");                     
+                        let day = timeText[1];    
+                        let nEv: MusEvent = {year: year, month: month, day: day, name: name};              
+                        newEvents.push(nEv); 
+                    }
+                    page += 1;
+                    return this.getEventsByDate(page, year, month);
+                }
+            }).map(() => newEvents);
+    }
+
+    getEventsByDate(page, year, month): Observable<any>{
+        console.log(month.toString());
+        var monthString = month<10?"0"+month.toString():month.toString(); //adjusting month to xx format
+        return this.http.get(`https://www.tivolivredenburg.nl/wp-admin/admin-ajax.php?action=get_events&page=${page}&maand=${year.toString()+monthString}&category=pop`)
+            .map(response => {
+                if(response.text() == "false"){
+                    return null;
+                }
+                else{
+                    return response.json();
+                }
+            });
+    }    
+}
