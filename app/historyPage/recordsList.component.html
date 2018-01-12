@@ -1,6 +1,6 @@
-<ActivityIndicator [busy]="true" class="m-t-30 activity-indicator" *ngIf="isLoading"></ActivityIndicator>
-<Label class="font-weight-bold m-x-auto m-t-30" text="No Saved Data" *ngIf="(!records || records.length ==0) && !isLoading"></Label>
-<ListView [items]="records" width="100%" height="100%" *ngIf="records && records.length>0" class="list-group">
+<ActivityIndicator [busy]="true" class="activity-indicator loading-indicator" *ngIf="isLoading"></ActivityIndicator>
+<Label class="font-weight-bold m-x-auto no-result-label" text="No Saved Data" *ngIf="(!records || records.length ==0) && !isLoading"></Label>
+<ListView [items]="records" *ngIf="records && records.length>0" class="list-group history-list">
         <ng-template let-item="item">
             <StackLayout orientation="vertical" class="list-group-item">
                 <Label [text]="item.checkDate" class="list-group-item-heading font-weight-bold"></Label> 

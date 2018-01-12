@@ -1,11 +1,10 @@
-<ActivityIndicator [busy]="true" class="m-t-30 activity-indicator" *ngIf="isLoading" 
-                    style="vertical-align:middle" ></ActivityIndicator>
-<Label class="font-weight-bold m-x-auto m-t-30" text="No Updates" *ngIf="(!events || events.length == 0) && !isLoading"></Label>
-<ListView [items]="events" *ngIf="events && events.length>0" class="list-group">
+<ActivityIndicator [busy]="true" class="activity-indicator loading-indicator" *ngIf="isLoading"></ActivityIndicator>
+<Label class="font-weight-bold m-x-auto no-result-label" text="No Updates Available" *ngIf="(!events || events.length == 0) && !isLoading"></Label>
+<ListView [items]="events" separatorColor="transparent" *ngIf="events && events.length>0" class="list-group">
         <ng-template let-item="item">
             <StackLayout orientation="horizontal" class="list-group-item">
-                <Label [text]="item.year + '-' + item.month + '-' + item.day"></Label>    
-                <Label [text]="item.name"></Label>
+                <Label [text]="item.year + '/' + item.month + '/' + item.day + '   '" class="list-group-item-text"></Label>    
+                <Label [text]="item.name" class="list-group-item-text"></Label>
             </StackLayout>
         </ng-template>
 </ListView>

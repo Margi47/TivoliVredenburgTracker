@@ -8,8 +8,7 @@ import { Observable } from 'rxjs/Observable';
     <ActionBar title="New Events">
         <NavigationButton text="Go Back"></NavigationButton>
     </ActionBar>
-    <StackLayout><events-list [events]="events$|async" [isLoading]="isLoading"></events-list></StackLayout>`,
-    styleUrls: ["./newEventsPage/events.component.css"]
+    <StackLayout><events-list [events]="events$|async" [isLoading]="isLoading"></events-list></StackLayout>`
 })
 export class EventsComponent implements OnInit{
     events$: Observable<any>;
