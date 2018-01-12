@@ -37,8 +37,13 @@ export class WebService {
                     for(let val of response){
                         let name = val.title;
                         let timeText = val.day.split(" ");                     
-                        let day = timeText[1];    
-                        let nEv: MusEvent = {year: year, month: month, day: day, name: name};              
+                        let day = parseInt(timeText[1]);   
+                        var monthString = month<10?"0"+month.toString():month.toString(); 
+                        var dayString = day<10?"0"+day.toString():day.toString();
+                        let nEv: MusEvent = {
+                            date: year.toString() + '/' + monthString + '/' + dayString, 
+                            name: name
+                            };              
                         newEvents.push(nEv); 
                     }
                     page += 1;

@@ -17,7 +17,7 @@ import { WebService } from "../shared/webService";
 
 @Injectable()
 export class FileSystemService {
-    private oldEvents: Record[];
+    private oldRecords: Record[];
     private file: File;
 
     constructor(private webService: WebService) {
@@ -35,8 +35,7 @@ export class FileSystemService {
 
                         for(let rec of records){
                             for(let oldEv of rec.musEvents){
-                                if(newEv.year == oldEv.year && newEv.month == oldEv.month 
-                                    && newEv.day == oldEv.day && newEv.name == oldEv.name){
+                                if(newEv.date == oldEv.date && newEv.name == oldEv.name){
                                         isNew = false;
                                 }
                             }
@@ -68,11 +67,11 @@ export class FileSystemService {
             .then(res => {
                 if(res.length > 0){
                     let result = JSON.parse(res);
-                    this.oldEvents = result;
+                    this.oldRecords = result;
                     return result.reverse();
                 }
                 else{
-                    this.oldEvents = [];
+                    this.oldRecords = [];
                     return [];
                 }
             }).catch(err => {
@@ -83,13 +82,14 @@ export class FileSystemService {
     pushEventsToFile(events): Observable<MusEvent[]>{
         let date = new Date();
         let dd = date.getDate();
-        let mm = date.getMonth()+1;
+        let monthNum = date.getMonth() +1;
+        let mm = monthNum<10?"0"+monthNum.toString():monthNum.toString();
         let yyyy = date.getFullYear();
-        let todayRecord:Record = {checkDate: yyyy.toString()+'-'+mm.toString()+'-'+dd.toString(), musEvents: events};
-        this.oldEvents.push(todayRecord);
+        let todayRecord:Record = {checkDate: yyyy.toString()+'/'+mm.toString()+'/'+dd.toString(), musEvents: events};
+        this.oldRecords.push(todayRecord);
         //pushes new updated array as a string
         return Observable.fromPromise(this.emptyFile()
-                .then(() => this.file.writeText(JSON.stringify(this.oldEvents))
+                .then(() => this.file.writeText(JSON.stringify(this.oldRecords))
                     .then(() => events)));
     }
 
