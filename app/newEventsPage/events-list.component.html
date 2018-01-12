@@ -1,7 +1,9 @@
-<Label text="EventsList"></Label>
-<ListView [items]="events">
+<ActivityIndicator [busy]="true" class="m-t-30 activity-indicator" *ngIf="isLoading" 
+                    style="vertical-align:middle" ></ActivityIndicator>
+<Label class="font-weight-bold m-x-auto m-t-30" text="No Updates" *ngIf="(!events || events.length == 0) && !isLoading"></Label>
+<ListView [items]="events" *ngIf="events && events.length>0" class="list-group">
         <ng-template let-item="item">
-            <StackLayout orientation="horizontal">
+            <StackLayout orientation="horizontal" class="list-group-item">
                 <Label [text]="item.year + '-' + item.month + '-' + item.day"></Label>    
                 <Label [text]="item.name"></Label>
             </StackLayout>

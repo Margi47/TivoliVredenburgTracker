@@ -53,7 +53,12 @@ export class FileSystemService {
                 }
             })
         }).switchMap(result =>{
-            return this.pushEventsToFile(result);
+            if(result.length > 0){
+                return this.pushEventsToFile(result);
+            }
+            else{
+                return Observable.of(result);
+            }
         });
 
     }
@@ -62,8 +67,9 @@ export class FileSystemService {
         return Observable.fromPromise(this.file.readText()
             .then(res => {
                 if(res.length > 0){
-                    this.oldEvents = JSON.parse(res);
-                    return JSON.parse(res);
+                    let result = JSON.parse(res);
+                    this.oldEvents = result;
+                    return result.reverse();
                 }
                 else{
                     this.oldEvents = [];

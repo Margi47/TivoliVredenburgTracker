@@ -1,15 +1,13 @@
-<ListView [items]="records">
+<ActivityIndicator [busy]="true" class="m-t-30 activity-indicator" *ngIf="isLoading"></ActivityIndicator>
+<Label class="font-weight-bold m-x-auto m-t-30" text="No Saved Data" *ngIf="(!records || records.length ==0) && !isLoading"></Label>
+<ListView [items]="records" width="100%" height="100%" *ngIf="records && records.length>0" class="list-group">
         <ng-template let-item="item">
-            <StackLayout orientation="verticsl">
-                <Label [text]="item.checkDate"></Label> 
-                <ListView [items]="item.musEvents">
-                    <ng-template let-mus="item">
-                        <StackLayout orientation="horozontal">
-                            <Label [text]="mus.year + '-' + mus.month + '-' + mus.day"></Label>
-                            <Label [text]="mus.name"></Label>
-                        </StackLayout>            
-                    </ng-template>
-                </ListView>       
+            <StackLayout orientation="vertical" class="list-group-item">
+                <Label [text]="item.checkDate" class="list-group-item-heading font-weight-bold"></Label> 
+                <StackLayout orientation="horizontal" *ngFor="let mus of item.musEvents" class="list-group-item">
+                    <Label [text]="mus.year + '/' + mus.month + '/' + mus.day + '   '" class="list-group-item-text"></Label>
+                    <Label [text]="mus.name" class="list-group-item-text"></Label>
+                </StackLayout>     
             </StackLayout>
         </ng-template>
 </ListView>

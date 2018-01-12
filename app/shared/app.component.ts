@@ -2,8 +2,7 @@ import { Component } from "@angular/core";
 
 @Component({
     selector: "ns-app",
-    templateUrl: "./app.component.html",
-    styleUrls: ["./shared/app.css"]
+    templateUrl: "./shared/app.component.html"
 })
 
-export class AppComponent { }
+export class AppComponent {}
