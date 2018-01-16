@@ -84,17 +84,32 @@ export class FileSystemService {
         let dd = date.getDate();
         let monthNum = date.getMonth() +1;
         let mm = monthNum<10?"0"+monthNum.toString():monthNum.toString();
-        let yyyy = date.getFullYear();
-        let todayRecord:Record = {checkDate: yyyy.toString()+'/'+mm.toString()+'/'+dd.toString(), musEvents: events};
+        let yy = date.getFullYear();
+        let checkDate = yy.toString()+'/'+mm.toString()+'/'+dd.toString()
+        let todayRecord:Record = {checkDate: checkDate, musEvents: events};
         this.oldRecords.push(todayRecord);
+
         //pushes new updated array as a string
         return Observable.fromPromise(this.emptyFile()
-                .then(() => this.file.writeText(JSON.stringify(this.oldRecords))
+                .then(() => this.file.writeText(JSON.stringify(this.getClearedData(monthNum, yy)))
                     .then(() => events)));
     }
 
     emptyFile(): Promise<void>{
         //removes old file and creates emty one
         return this.file.remove().then(()=> {this.file = knownFolders.documents().getFolder("history").getFile("history.txt");});
+    }
+
+    getClearedData(month: number, year: number): Record[]{
+        for(let rec of this.oldRecords){
+            for(let eve of rec.musEvents){
+                let yy = parseInt(eve.date.substring(0,4));
+                let mm = parseInt(eve.date.substring(6,7));
+                if(yy < year || mm < month){
+                    rec.musEvents.splice(rec.musEvents.indexOf(eve),1);
+                }
+            }
+        }
+        return this.oldRecords;
     }
 }
