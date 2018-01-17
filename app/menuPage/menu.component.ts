@@ -2,6 +2,7 @@ import { Component} from "@angular/core";
 import { Router } from "@angular/router";
 import { FileSystemService } from "../shared/fileSystemService";
 import * as dialogs from "ui/dialogs";
+import * as Toast from "nativescript-toast";
 
 @Component({
     selector: "menu",
@@ -18,13 +19,16 @@ export class MenuComponent {
         this.router.navigate(["/history"]);
     }
 
-    clearHistory(){
-        this.fileService.emptyFile().then(() => dialogs.alert({
-            title: "Done",
-            message: "History cleaned",
-            okButtonText: "Ok"
-        }).then(()=> {
-            console.log("Dialog closed!");
-        }));
+    cleanHistory(){
+        dialogs.confirm({
+            title: "Alert",
+            message: "You want to delete history? This action is irreversible.",
+            okButtonText: "Ok",
+            cancelButtonText: "Cancel"
+        }).then(result => {
+            if(result){
+                this.fileService.emptyFile().then(() => Toast.makeText("History is cleaned").show());
+            }
+        });
     }
 }
