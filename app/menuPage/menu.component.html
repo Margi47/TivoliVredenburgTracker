@@ -1,9 +1,20 @@
 <ActionBar title="Tivoli Vredenburg">
         <NavigationButton ios.text="Go Back"></NavigationButton>
 </ActionBar>
-<StackLayout>  
-    <Image src="res://tivoli" class="img-rounded"></Image>
-    <Button text="Get new events" (tap)="getNewEvents()"></Button>
-    <Button text="History" (tap)="showHistory()"></Button>
-    <Button text="Clean History" (tap)="cleanHistory()"></Button>
-</StackLayout>
+<GridLayout >
+    <StackLayout class="orientation-vertical m-x-auto m-y-auto">  
+        <Image src="res://tivoli" class="img-rounded"></Image>
+        <Button text="Get new events" (tap)="getNewEvents()"></Button>
+        <Button text="History" (tap)="showHistory()"></Button>
+        <Button text="Clean History" (tap)="cleanHistory()"></Button>
+    </StackLayout>
+    
+    <StackLayout class="orientation-horizontal m-x-auto m-y-auto" orientation="horizontal">  
+        <Image src="res://tivoli" class="img-rounded"></Image>
+        <StackLayout class="menu-buttons m-x-auto m-y-auto">
+            <Button text="Get new events" (tap)="getNewEvents()"></Button>
+            <Button text="History" (tap)="showHistory()"></Button>
+            <Button text="Clean History" (tap)="cleanHistory()"></Button>
+        </StackLayout>
+    </StackLayout>
+</GridLayout>

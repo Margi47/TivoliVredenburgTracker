@@ -16,6 +16,7 @@ import { FileSystemService } from "./fileSystemService";
 
 // Uncomment and add to NgModule imports  if you need to use the HTTP wrapper
 import { NativeScriptHttpModule } from "nativescript-angular/http";
+var Orientation = require("nativescript-orientation");
 
 @NgModule({
     bootstrap: [

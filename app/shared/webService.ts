@@ -35,7 +35,7 @@ export class WebService {
                 }
                 else{  
                     for(let val of response){
-                        let name = val.title;
+                        let name = val.title.indexOf("&#8211;") !=-1 ? val.title.replace(/&#8211;/gi, "&") : val.title;
                         let timeText = val.day.split(" ");                     
                         let day = parseInt(timeText[1]);   
                         var monthString = month<10?"0"+month.toString():month.toString(); 
@@ -55,7 +55,7 @@ export class WebService {
     getEventsByDate(page, year, month): Observable<any>{
         console.log(month.toString());
         var monthString = month<10?"0"+month.toString():month.toString(); //adjusting month to xx format
-        return this.http.get(`https://www.tivolivredenburg.nl/wp-admin/admin-ajax.php?action=get_events&page=${page}&maand=${year.toString()+monthString}&category=pop`)
+        return this.http.get(`https://www.tivolivredenburg.nl/wp-admin/admin-ajax.php?action=get_events&page=${page}&maand=${year.toString()+monthString}&categorie=pop`)
             .map(response => {
                 if(response.text() == "false"){
                     return null;

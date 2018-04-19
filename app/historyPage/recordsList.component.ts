@@ -3,7 +3,7 @@ import { Observable } from 'rxjs/Observable';
 
 @Component({
     selector: "records-list",
-    templateUrl: `./historyPage/recordsList.component.html`,
+    templateUrl: `./historyPage/recordsList.component.html`
 })
 export class RecordsListComponent{
     @Input() records: any[];

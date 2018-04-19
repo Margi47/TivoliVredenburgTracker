@@ -7,3 +7,5 @@ dist
 *.js
 *.map
 *.log
+.vscode
+tivoli-key.jks
