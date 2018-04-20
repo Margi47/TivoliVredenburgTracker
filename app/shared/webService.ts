@@ -12,13 +12,13 @@ import { MusEvent } from "./musEvent";
 export class WebService {
     constructor(private http: Http) {}
 
-    getAllEvents(): Observable<MusEvent[]>{     
+    getAllEvents(category: string): Observable<MusEvent[]>{     
         let newEvents: MusEvent[] = [];
         let page = 1;
         let curDate = new Date();
         let year = curDate.getFullYear();
         let month = curDate.getMonth()+1; //month numbers start from 0
-        let request$ = this.getEventsByDate(page, year, month);
+        let request$ = this.getEventsByDate(page, year, month,category);
 
         return request$
             .expand(response => {
@@ -27,7 +27,7 @@ export class WebService {
                         page = 1;
                         year = month==12?++year:year;
                         month = month==12?1:++month;
-                        return this.getEventsByDate(page,year,month);
+                        return this.getEventsByDate(page,year,month,category);
                     }
                     else{ //no more data available
                         return Observable.empty();               
@@ -47,15 +47,15 @@ export class WebService {
                         newEvents.push(nEv); 
                     }
                     page += 1;
-                    return this.getEventsByDate(page, year, month);
+                    return this.getEventsByDate(page, year, month, category);
                 }
             }).map(() => newEvents);
     }
 
-    getEventsByDate(page, year, month): Observable<any>{
+    getEventsByDate(page, year, month, category): Observable<any>{
         console.log(month.toString());
         var monthString = month<10?"0"+month.toString():month.toString(); //adjusting month to xx format
-        return this.http.get(`https://www.tivolivredenburg.nl/wp-admin/admin-ajax.php?action=get_events&page=${page}&maand=${year.toString()+monthString}&categorie=pop`)
+        return this.http.get(`https://www.tivolivredenburg.nl/wp-admin/admin-ajax.php?action=get_events&page=${page}&maand=${year.toString()+monthString}&categorie=${category}`)
             .map(response => {
                 if(response.text() == "false"){
                     return null;

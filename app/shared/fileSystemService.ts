@@ -21,13 +21,15 @@ export class FileSystemService {
     private file: File;
 
     constructor(private webService: WebService) {
-        this.file = knownFolders.documents().getFolder("history").getFile("history.txt");
+        
     }
 
-    getNewEvents(): Observable<MusEvent[]>{
+    getNewEvents(category: string): Observable<MusEvent[]>{
+        this.getFile(category);
+
         //getting all events, then getting old events, comparing, writing to file
-        return this.webService.getAllEvents().last().mergeMap(newEvents =>{
-            return this.getHistory().map(records => {
+        return this.webService.getAllEvents(category).last().mergeMap(newEvents =>{
+            return this.getHistory(category).map(records => {
                 if (records.length != 0){
                     let eventsToAdd: MusEvent[] = [];
                     for(let newEv of newEvents){
@@ -62,7 +64,35 @@ export class FileSystemService {
 
     }
 
-    getHistory(): Observable<Record[]>{
+    getFile(category: string){
+        switch(category){
+            case "pop" : {
+                this.file = knownFolders.documents().getFolder("history").getFile("pophistory.txt");
+                break;
+            }
+            case "klassiek" : {
+                this.file = knownFolders.documents().getFolder("history").getFile("klassiekhistory.txt");
+                break;
+            }
+            case "jazz" : {
+                this.file = knownFolders.documents().getFolder("history").getFile("jazzhistory.txt");
+                break;
+            }
+            case "by-night" : {
+                this.file = knownFolders.documents().getFolder("history").getFile("bynighthistory.txt");
+                break;
+            }
+            case "familie" : {
+                this.file = knownFolders.documents().getFolder("history").getFile("familiehistory.txt");
+                break;
+            }
+            case "anders" : {
+                this.file = knownFolders.documents().getFolder("history").getFile("andershistory.txt");
+            }
+        }
+    }
+
+    getHistory(category: string): Observable<Record[]>{
         return Observable.fromPromise(this.file.readText()
             .then(res => {
                 if(res.length > 0){
@@ -97,7 +127,11 @@ export class FileSystemService {
 
     emptyFile(): Promise<void>{
         //removes old file and creates emty one
-        return this.file.remove().then(()=> {this.file = knownFolders.documents().getFolder("history").getFile("history.txt");});
+        return this.file.remove();
+    }
+
+    removeHistory(): Promise<void>{
+        return knownFolders.documents().getFolder("history").remove();
     }
 
     getClearedData(month: number, year: number): Record[]{

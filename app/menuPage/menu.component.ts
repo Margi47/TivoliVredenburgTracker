@@ -27,7 +27,7 @@ export class MenuComponent {
             cancelButtonText: "Cancel"
         }).then(result => {
             if(result){
-                this.fileService.emptyFile().then(() => Toast.makeText("History is cleaned").show());
+                this.fileService.removeHistory().then(() => Toast.makeText("History is cleaned").show());
             }
         });
     }
