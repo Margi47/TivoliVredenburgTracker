@@ -6,5 +6,6 @@ import { Component, Input} from "@angular/core";
 })
 export class EventsListComponent{
     @Input() events: any[];
-    @Input() isLoading:boolean;
+    @Input() isLoading: boolean;
+    @Input() dialogShowing: boolean;
 }

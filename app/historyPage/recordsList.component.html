@@ -1,5 +1,5 @@
 <ActivityIndicator [busy]="true" class="activity-indicator loading-indicator" *ngIf="isLoading"></ActivityIndicator>
-<Label class="font-weight-bold m-x-auto no-result-label" style="font-size: 20%; " text="No Saved Data" *ngIf="(!records || records.length ==0) && !isLoading"></Label>
+<Label class="font-weight-bold m-x-auto no-result-label" style="font-size: 20%; " text="No Saved Data" *ngIf="(!records || records.length ==0) && !isLoading && !dialogShowing"></Label>
 <ListView [items]="records" *ngIf="records && records.length>0" class="list-group history-list">
         <ng-template let-item="item">
             <StackLayout orientation="vertical" class="list-group-item">

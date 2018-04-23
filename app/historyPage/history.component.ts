@@ -7,26 +7,41 @@ import { action } from "ui/dialogs";
 @Component({
     selector: "history",
     template: `
-    <ActionBar title="History">
+    <ActionBar [title]='categoryTitle'>
         <NavigationButton text="Go Back"></NavigationButton>
     </ActionBar>
     <StackLayout>
-        <Button text="Choose another category" (tap)="showDialogue()"></Button>
-        <records-list [records]="records$|async" [isLoading]="isLoading"></records-list>
+        <Button text="Choose another category" (tap)="showDialog()"></Button>
+        <records-list [records]="records$|async" [isLoading]="isLoading" [dialogShowing]="dialogShowing"></records-list>
     </StackLayout>`
 })
 export class HistoryComponent implements OnInit{
     records$: Observable<any>;
     isLoading: boolean;
+    dialogShowing: boolean;
+
     categories: string[] = ["pop", "klassiek", "jazz", "by-night", "familie", "anders"];
+    private _categoryTitle: string;
+    get categoryTitle(): string{
+        if (this._categoryTitle == null){
+            return "History";
+        }
+        else{
+            return this._categoryTitle;
+        }
+    }
+    set categoryTitle(value: string){
+        this._categoryTitle = value.charAt(0).toUpperCase().concat(value.substring(1), " history"); 
+    }
 
     constructor(private fileService: FileSystemService){}
 
     ngOnInit(){
-        this.showDialogue();
+        this.showDialog();
     }
 
-    showDialogue(){
+    showDialog(){
+        this.dialogShowing = true;
         let options = {
             title: "Category selection",
             message: "Choose category",
@@ -34,10 +49,12 @@ export class HistoryComponent implements OnInit{
             actions: this.categories
         };
         action(options).then((result) => {
+            this.dialogShowing = false;
             this.isLoading = true;
-            this.records$ = this.fileService.getHistory("pop").map((result) => {
-                this.isLoading = false;
-                return result;
+            this.categoryTitle = result;
+            this.records$ = this.fileService.getHistory(result).map((records) => {
+                this.isLoading = false;     
+                return records;
             });;
         });
     }

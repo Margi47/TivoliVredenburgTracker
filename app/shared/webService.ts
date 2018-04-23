@@ -35,16 +35,18 @@ export class WebService {
                 }
                 else{  
                     for(let val of response){
-                        let name = val.title.indexOf("&#8211;") !=-1 ? val.title.replace(/&#8211;/gi, "&") : val.title;
                         let timeText = val.day.split(" ");                     
-                        let day = parseInt(timeText[1]);   
-                        var monthString = month<10?"0"+month.toString():month.toString(); 
-                        var dayString = day<10?"0"+day.toString():day.toString();
-                        let nEv: MusEvent = {
-                            date: year.toString() + '/' + monthString + '/' + dayString, 
-                            name: name
+                        let day = parseInt(timeText[1]); 
+                        if (day < curDate.getDate()){
+                            let name = val.title.indexOf("&#") !=-1 ? val.title.replace(/&#.+.+.+.+;/gi, "&") : val.title;                          
+                            var monthString = month<10?"0"+month.toString():month.toString(); 
+                            var dayString = day<10?"0"+day.toString():day.toString();
+                            let nEv: MusEvent = {
+                                date: year.toString() + '/' + monthString + '/' + dayString, 
+                                name: name
                             };              
-                        newEvents.push(nEv); 
+                            newEvents.push(nEv); 
+                        }
                     }
                     page += 1;
                     return this.getEventsByDate(page, year, month, category);

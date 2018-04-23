@@ -8,4 +8,5 @@ import { Observable } from 'rxjs/Observable';
 export class RecordsListComponent{
     @Input() records: any[];
     @Input() isLoading:boolean;
+    @Input() dialogShowing: boolean;
 }

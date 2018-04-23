@@ -18,15 +18,10 @@ import { WebService } from "../shared/webService";
 @Injectable()
 export class FileSystemService {
     private oldRecords: Record[];
-    private file: File;
 
-    constructor(private webService: WebService) {
-        
-    }
+    constructor(private webService: WebService) {}
 
     getNewEvents(category: string): Observable<MusEvent[]>{
-        this.getFile(category);
-
         //getting all events, then getting old events, comparing, writing to file
         return this.webService.getAllEvents(category).last().mergeMap(newEvents =>{
             return this.getHistory(category).map(records => {
@@ -55,7 +50,7 @@ export class FileSystemService {
             })
         }).switchMap(result =>{
             if(result.length > 0){
-                return this.pushEventsToFile(result);
+                return this.pushEventsToFile(result, category);
             }
             else{
                 return Observable.of(result);
@@ -64,37 +59,11 @@ export class FileSystemService {
 
     }
 
-    getFile(category: string){
-        switch(category){
-            case "pop" : {
-                this.file = knownFolders.documents().getFolder("history").getFile("pophistory.txt");
-                break;
-            }
-            case "klassiek" : {
-                this.file = knownFolders.documents().getFolder("history").getFile("klassiekhistory.txt");
-                break;
-            }
-            case "jazz" : {
-                this.file = knownFolders.documents().getFolder("history").getFile("jazzhistory.txt");
-                break;
-            }
-            case "by-night" : {
-                this.file = knownFolders.documents().getFolder("history").getFile("bynighthistory.txt");
-                break;
-            }
-            case "familie" : {
-                this.file = knownFolders.documents().getFolder("history").getFile("familiehistory.txt");
-                break;
-            }
-            case "anders" : {
-                this.file = knownFolders.documents().getFolder("history").getFile("andershistory.txt");
-            }
-        }
-    }
-
     getHistory(category: string): Observable<Record[]>{
-        return Observable.fromPromise(this.file.readText()
+        return Observable.fromPromise(this.getFile(category).readText()
             .then(res => {
+                console.log(this.getFile(category).name);
+                console.log(res);
                 if(res.length > 0){
                     let result = JSON.parse(res);
                     this.oldRecords = result;
@@ -109,7 +78,35 @@ export class FileSystemService {
             }));
     }
 
-    pushEventsToFile(events): Observable<MusEvent[]>{
+    removeHistory(): Promise<void>{
+        return knownFolders.documents().getFolder("history").remove();
+    }
+
+    getFile(category: string){
+        switch(category){
+            case "pop" : {
+                 return knownFolders.documents().getFolder("history").getFile("pophistory.txt");
+            }
+            case "klassiek" : {
+                return knownFolders.documents().getFolder("history").getFile("klassiekhistory.txt");
+            }
+            case "jazz" : {
+                return knownFolders.documents().getFolder("history").getFile("jazzhistory.txt");
+            }
+            case "by-night" : {
+                return knownFolders.documents().getFolder("history").getFile("bynighthistory.txt");
+            }
+            case "familie" : {
+                return knownFolders.documents().getFolder("history").getFile("familiehistory.txt");
+            }
+            case "anders" : {
+                return knownFolders.documents().getFolder("history").getFile("andershistory.txt");
+            }
+        }
+    }
+
+    pushEventsToFile(events, category): Observable<MusEvent[]>{
+        let file = this.getFile(category);
         let date = new Date();
         let dd = date.getDate();
         let monthNum = date.getMonth() +1;
@@ -120,18 +117,10 @@ export class FileSystemService {
         this.oldRecords.push(todayRecord);
 
         //pushes new updated array as a string
-        return Observable.fromPromise(this.emptyFile()
-                .then(() => this.file.writeText(JSON.stringify(this.getClearedData(monthNum, yy)))
+        return Observable.fromPromise(file.remove()
+            .then(()=> this.getFile(category))
+                .then(() => file.writeText(JSON.stringify(this.getClearedData(monthNum, yy)))
                     .then(() => events)));
-    }
-
-    emptyFile(): Promise<void>{
-        //removes old file and creates emty one
-        return this.file.remove();
-    }
-
-    removeHistory(): Promise<void>{
-        return knownFolders.documents().getFolder("history").remove();
     }
 
     getClearedData(month: number, year: number): Record[]{
@@ -139,7 +128,7 @@ export class FileSystemService {
             for(let eve of rec.musEvents){
                 let yy = parseInt(eve.date.substring(0,4));
                 let mm = parseInt(eve.date.substring(6,7));
-                if(yy < year || mm < month){
+                if(yy < year || mm < month ){
                     rec.musEvents.splice(rec.musEvents.indexOf(eve),1);
                 }
             }
