@@ -9,9 +9,11 @@ import { action } from "ui/dialogs";
     template: `
     <ActionBar [title]='categoryTitle'>
         <NavigationButton text="Go Back"></NavigationButton>
+        <ActionItem (tap)="showDialog()"
+            ios.systemIcon="12" ios.position="right"
+            android.systemIcon="ic_menu_search"></ActionItem>
     </ActionBar>
     <StackLayout>
-        <Button text="Choose another category" (tap)="showDialog()"></Button>
         <events-list [events]="events$|async" [isLoading]="isLoading" [dialogShowing]="dialogShowing"></events-list>
     </StackLayout>`
 })
