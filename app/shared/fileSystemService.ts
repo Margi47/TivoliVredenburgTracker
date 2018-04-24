@@ -85,8 +85,8 @@ export class FileSystemService {
             case "pop" : {
                  return knownFolders.documents().getFolder("history").getFile("pophistory.txt");
             }
-            case "klassiek" : {
-                return knownFolders.documents().getFolder("history").getFile("klassiekhistory.txt");
+            case "classic" : {
+                return knownFolders.documents().getFolder("history").getFile("classichistory.txt");
             }
             case "jazz" : {
                 return knownFolders.documents().getFolder("history").getFile("jazzhistory.txt");
@@ -94,11 +94,11 @@ export class FileSystemService {
             case "by-night" : {
                 return knownFolders.documents().getFolder("history").getFile("bynighthistory.txt");
             }
-            case "familie" : {
-                return knownFolders.documents().getFolder("history").getFile("familiehistory.txt");
+            case "family" : {
+                return knownFolders.documents().getFolder("history").getFile("familyhistory.txt");
             }
-            case "anders" : {
-                return knownFolders.documents().getFolder("history").getFile("andershistory.txt");
+            case "other" : {
+                return knownFolders.documents().getFolder("history").getFile("otherhistory.txt");
             }
         }
     }

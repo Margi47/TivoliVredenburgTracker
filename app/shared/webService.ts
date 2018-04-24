@@ -8,6 +8,8 @@ import "rxjs/add/observable/empty";
 
 import { MusEvent } from "./musEvent";
 
+import * as s from "string";
+
 @Injectable()
 export class WebService {
     constructor(private http: Http) {}
@@ -18,7 +20,20 @@ export class WebService {
         let curDate = new Date();
         let year = curDate.getFullYear();
         let month = curDate.getMonth()+1; //month numbers start from 0
-        let request$ = this.getEventsByDate(page, year, month,category);
+        let requestCategory: string;
+        if(category == "classic"){
+            requestCategory = "klassiek";
+        }
+        else if(category == "family"){
+            requestCategory = "familie";
+        }
+        else if(category == "other"){
+            requestCategory = "anders";
+        }
+        else{
+            requestCategory = category;
+        }
+        let request$ = this.getEventsByDate(page, year, month,requestCategory);
 
         return request$
             .expand(response => {
@@ -37,17 +52,9 @@ export class WebService {
                     for(let val of response){
                         let timeText = val.day.split(" ");                     
                         let day = parseInt(timeText[1]); 
+                        
                         if (day >= curDate.getDate() || val.month > month){
-                            let name:string;
-                            if(val.title.indexOf("&#") !=-1 && val.title.indexOf(";s") !=-1){
-                                name = val.title.replace(/&[\w\d#]*;s/gi, "\'s");
-                            }
-                            else if(val.title.indexOf("&#") !=-1 || val.title.indexOf("&amp;") !=-1){
-                                name = val.title.replace(/&[\w\d#]*;/gi, "&");
-                            }
-                            else{
-                                name = val.title;
-                            }                            
+                            let name:string = s(val.title).decodeHTMLEntities().s;                   
                             var monthString = month<10?"0"+month.toString():month.toString(); 
                             var dayString = day<10?"0"+day.toString():day.toString();
                             let nEv: MusEvent = {
@@ -58,7 +65,7 @@ export class WebService {
                         }
                     }
                     page += 1;
-                    return this.getEventsByDate(page, year, month, category);
+                    return this.getEventsByDate(page, year, month, requestCategory);
                 }
             }).map(() => newEvents);
     }

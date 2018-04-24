@@ -22,7 +22,7 @@ export class HistoryComponent implements OnInit{
     isLoading: boolean;
     dialogShowing: boolean;
 
-    categories: string[] = ["pop", "klassiek", "jazz", "by-night", "familie", "anders"];
+    categories: string[] = ["pop", "classic", "jazz", "by-night", "family", "other"];
     private _categoryTitle: string;
     get categoryTitle(): string{
         if (this._categoryTitle == null){

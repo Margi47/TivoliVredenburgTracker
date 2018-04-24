@@ -4,5 +4,8 @@
   },
   "main": "main.js",
   "name": "tns-template-hello-world-ng",
-  "version": "3.4.1"
+  "version": "3.4.1",
+  "devDependencies": {
+    "@types/string": "0.0.29"
+  }
 }
