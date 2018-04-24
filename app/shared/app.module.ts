@@ -7,7 +7,7 @@ import { MenuComponent } from "../menuPage/menu.component";
 import { EventsComponent } from "../newEventsPage/events.component";
 import { EventsListComponent } from "../newEventsPage/events-list.component";
 import { HistoryComponent } from "../historyPage/history.component";
-import { RecordsListComponent } from "../historyPage/recordsList.component";
+import { RecordsListComponent } from "../historyPage/records-list.component";
 import { WebService } from "./webService";
 import { FileSystemService } from "./fileSystemService";
 

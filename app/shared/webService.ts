@@ -37,8 +37,17 @@ export class WebService {
                     for(let val of response){
                         let timeText = val.day.split(" ");                     
                         let day = parseInt(timeText[1]); 
-                        if (day < curDate.getDate()){
-                            let name = val.title.indexOf("&#") !=-1 ? val.title.replace(/&#.+.+.+.+;/gi, "&") : val.title;                          
+                        if (day >= curDate.getDate() || val.month > month){
+                            let name:string;
+                            if(val.title.indexOf("&#") !=-1 && val.title.indexOf(";s") !=-1){
+                                name = val.title.replace(/&[\w\d#]*;s/gi, "\'s");
+                            }
+                            else if(val.title.indexOf("&#") !=-1 || val.title.indexOf("&amp;") !=-1){
+                                name = val.title.replace(/&[\w\d#]*;/gi, "&");
+                            }
+                            else{
+                                name = val.title;
+                            }                            
                             var monthString = month<10?"0"+month.toString():month.toString(); 
                             var dayString = day<10?"0"+day.toString():day.toString();
                             let nEv: MusEvent = {

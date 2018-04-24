@@ -2,9 +2,10 @@
 <Label class="font-weight-bold m-x-auto no-result-label" text="No Updates Available" *ngIf="(!events || events.length == 0) && !isLoading && !dialogShowing"></Label>
 <ListView [items]="events" separatorColor="transparent" *ngIf="events && events.length>0" class="list-group events-list">
         <ng-template let-item="item">
-            <StackLayout orientation="horizontal" class="list-group-item">
+            <StackLayout orientation="horizontal" class="list-group-item" style="padding-bottom: 0px; padding-top: 0px">
                 <Label [text]="item.date + '   '" class="list-group-item-text" style="font-size: 15%"></Label>    
-                <Label [text]="item.name" class="list-group-item-text" style="font-size: 15%"></Label>
+                <TextView [editable]="false" [text]="item.name" class="list-group-item-text" 
+                    style="font-size: 15%; border-bottom-width: 1; border-bottom-color: white;"></TextView>
             </StackLayout>
         </ng-template>
 </ListView>

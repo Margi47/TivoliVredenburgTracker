@@ -4,9 +4,11 @@
         <ng-template let-item="item">
             <StackLayout orientation="vertical" class="list-group-item">
                 <Label [text]="item.checkDate" class="list-group-item-heading font-weight-bold"></Label> 
-                <StackLayout orientation="horizontal" *ngFor="let mus of item.musEvents" class="list-group-item">
+                <StackLayout orientation="horizontal" *ngFor="let mus of item.musEvents" class="list-group-item"
+                    style="padding-bottom: 0px; padding-top: 0px">
                     <Label [text]="mus.date + '   '" class="list-group-item-text" style="font-size: 15%"></Label>
-                    <Label [text]="mus.name" class="list-group-item-text" style="font-size: 15%"></Label>
+                    <TextView [editable]="false" [text]="mus.name" class="list-group-item-text" 
+                        style="font-size: 15%; border-bottom-width: 1; border-bottom-color: white;"></TextView>
                 </StackLayout>     
             </StackLayout>
         </ng-template>

@@ -62,8 +62,6 @@ export class FileSystemService {
     getHistory(category: string): Observable<Record[]>{
         return Observable.fromPromise(this.getFile(category).readText()
             .then(res => {
-                console.log(this.getFile(category).name);
-                console.log(res);
                 if(res.length > 0){
                     let result = JSON.parse(res);
                     this.oldRecords = result;
