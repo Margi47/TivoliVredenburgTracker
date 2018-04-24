@@ -1,11 +1,10 @@
 <ActivityIndicator [busy]="true" class="activity-indicator loading-indicator" *ngIf="isLoading"></ActivityIndicator>
-<Label text="Last Updates" class="h2 font-weight-bold m-t-15 m-x-auto" style="font-size: 20%; " *ngIf="events && events.length>0"></Label>
-<Label class="font-weight-bold m-x-auto no-result-label" style="font-size: 20%; " text="No Updates Available" *ngIf="(!events || events.length == 0) && !isLoading && !dialogShowing"></Label>
-<ListView [items]="events" separatorColor="transparent" *ngIf="events && events.length>0" class="list-group">
+<Label class="font-weight-bold m-x-auto no-result-label" text="No Updates Available" *ngIf="(!events || events.length == 0) && !isLoading && !dialogShowing"></Label>
+<ListView [items]="events" separatorColor="transparent" *ngIf="events && events.length>0" class="list-group events-list">
         <ng-template let-item="item">
             <StackLayout orientation="horizontal" class="list-group-item">
-                <Label [text]="item.date + '   '" class="list-group-item-text" style="font-size: 20%; "></Label>    
-                <Label [text]="item.name" class="list-group-item-text" style="font-size: 20%; "></Label>
+                <Label [text]="item.date + '   '" class="list-group-item-text" style="font-size: 15%"></Label>    
+                <Label [text]="item.name" class="list-group-item-text" style="font-size: 15%"></Label>
             </StackLayout>
         </ng-template>
 </ListView>

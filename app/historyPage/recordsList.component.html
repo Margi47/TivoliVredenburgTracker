@@ -1,12 +1,12 @@
 <ActivityIndicator [busy]="true" class="activity-indicator loading-indicator" *ngIf="isLoading"></ActivityIndicator>
-<Label class="font-weight-bold m-x-auto no-result-label" style="font-size: 20%; " text="No Saved Data" *ngIf="(!records || records.length ==0) && !isLoading && !dialogShowing"></Label>
-<ListView [items]="records" *ngIf="records && records.length>0" class="list-group history-list">
+<Label class="font-weight-bold m-x-auto no-result-label" text="No Saved Data" *ngIf="(!records || records.length ==0) && !isLoading && !dialogShowing"></Label>
+<ListView [items]="records" *ngIf="records && records.length>0" separatorColor="transparent" class="list-group events-list">
         <ng-template let-item="item">
             <StackLayout orientation="vertical" class="list-group-item">
-                <Label [text]="item.checkDate" class="list-group-item-heading font-weight-bold" style="font-size: 20%; "></Label> 
+                <Label [text]="item.checkDate" class="list-group-item-heading font-weight-bold"></Label> 
                 <StackLayout orientation="horizontal" *ngFor="let mus of item.musEvents" class="list-group-item">
-                    <Label [text]="mus.date + '   '" class="list-group-item-text" style="font-size: 20%; "></Label>
-                    <Label [text]="mus.name" class="list-group-item-text" style="font-size: 20%; "></Label>
+                    <Label [text]="mus.date + '   '" class="list-group-item-text" style="font-size: 15%"></Label>
+                    <Label [text]="mus.name" class="list-group-item-text" style="font-size: 15%"></Label>
                 </StackLayout>     
             </StackLayout>
         </ng-template>

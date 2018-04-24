@@ -1,7 +1,7 @@
 import { Component, OnInit} from "@angular/core";
 import { FileSystemService } from "../shared/fileSystemService";
 import { Observable } from 'rxjs/Observable';
-
+import { RouterExtensions } from "nativescript-angular/router";
 import { action } from "ui/dialogs";
 
 @Component({
@@ -34,7 +34,7 @@ export class HistoryComponent implements OnInit{
         this._categoryTitle = value.charAt(0).toUpperCase().concat(value.substring(1), " history"); 
     }
 
-    constructor(private fileService: FileSystemService){}
+    constructor(private fileService: FileSystemService, private routerExtensions: RouterExtensions){}
 
     ngOnInit(){
         this.showDialog();
@@ -43,19 +43,23 @@ export class HistoryComponent implements OnInit{
     showDialog(){
         this.dialogShowing = true;
         let options = {
-            title: "Category selection",
-            message: "Choose category",
+            message: "Choose a category",
             cancelButtonText: "Cancel",
             actions: this.categories
         };
         action(options).then((result) => {
-            this.dialogShowing = false;
-            this.isLoading = true;
-            this.categoryTitle = result;
-            this.records$ = this.fileService.getHistory(result).map((records) => {
-                this.isLoading = false;     
-                return records;
-            });;
+            if(result != "Cancel"){
+                this.dialogShowing = false;
+                this.isLoading = true;
+                this.categoryTitle = result;
+                this.records$ = this.fileService.getHistory(result).map((records) => {
+                    this.isLoading = false;     
+                    return records;
+                });;
+            }
+            else{
+                this.routerExtensions.back();
+            }
         });
     }
 }

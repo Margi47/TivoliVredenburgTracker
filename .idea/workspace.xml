@@ -2,7 +2,14 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="9dcbdc81-dbaf-4e5c-a8bf-4bdf2289610b" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/_app-common.scss" afterPath="$PROJECT_DIR$/app/_app-common.scss" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/app.android.css" afterPath="$PROJECT_DIR$/app/app.android.css" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/app.css" afterPath="$PROJECT_DIR$/app/app.css" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/app.ios.css" afterPath="$PROJECT_DIR$/app/app.ios.css" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/historyPage/history.component.ts" afterPath="$PROJECT_DIR$/app/historyPage/history.component.ts" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/historyPage/recordsList.component.html" afterPath="$PROJECT_DIR$/app/historyPage/recordsList.component.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/newEventsPage/events-list.component.html" afterPath="$PROJECT_DIR$/app/newEventsPage/events-list.component.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/newEventsPage/events.component.ts" afterPath="$PROJECT_DIR$/app/newEventsPage/events.component.ts" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -221,7 +228,7 @@
       <option name="ACTIVITY_CLASS" value="" />
       <method>
         <option name="Android.Gradle.BeforeRunTask" enabled="true" />
-        <option name="com.android.instantApps.provision.BeforeRunTask" enabled="true" clearCache="false" clearProvisionedDevices="false" myTimestamp="1524255177033" />
+        <option name="com.android.instantApps.provision.BeforeRunTask" enabled="true" clearCache="false" clearProvisionedDevices="false" myTimestamp="1524575550400" />
       </method>
     </configuration>
     <configuration default="true" type="AndroidTestRunConfigurationType" factoryName="Android Instrumented Tests">
@@ -269,7 +276,7 @@
       </Profilers>
       <method>
         <option name="Android.Gradle.BeforeRunTask" enabled="true" />
-        <option name="com.android.instantApps.provision.BeforeRunTask" enabled="true" clearCache="false" clearProvisionedDevices="false" myTimestamp="1524255177033" />
+        <option name="com.android.instantApps.provision.BeforeRunTask" enabled="true" clearCache="false" clearProvisionedDevices="false" myTimestamp="1524575550400" />
       </method>
     </configuration>
     <configuration default="true" type="AppEngineRunConfiguration" factoryName="App Engine DevAppServer">
