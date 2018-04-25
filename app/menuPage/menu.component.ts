@@ -22,7 +22,7 @@ export class MenuComponent {
     cleanHistory(){
         dialogs.confirm({
             title: "Alert",
-            message: "You want to delete history? This action is irreversible.",
+            message: "You want to delete history? This action cannot be undone.",
             okButtonText: "Ok",
             cancelButtonText: "Cancel"
         }).then(result => {

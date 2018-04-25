@@ -3,8 +3,8 @@
     "v8Flags": "--expose_gc"
   },
   "main": "main.js",
-  "name": "tns-template-hello-world-ng",
-  "version": "3.4.1",
+  "name": "tns-tivoli",
+  "version": "1.0.0",
   "devDependencies": {
     "@types/string": "0.0.29"
   }
