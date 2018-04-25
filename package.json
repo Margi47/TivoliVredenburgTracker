@@ -1,8 +1,6 @@
 {
-	"description": "NativeScript Application",
-	"license": "SEE LICENSE IN <your-license-filename>",
-	"readme": "NativeScript Application",
-	"repository": "<fill-your-repository-here>",
+	"description": "NativeScript Application for TivoliVredenburg events",
+	"license": "SEE LICENSE IN ./LISENSE",
 	"nativescript": {
 		"id": "org.nativescript.TivoliVredenburg",
 		"tns-ios": {
