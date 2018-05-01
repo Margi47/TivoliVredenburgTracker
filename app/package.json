@@ -4,7 +4,7 @@
   },
   "main": "main.js",
   "name": "tns-tivoli",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "devDependencies": {
     "@types/string": "0.0.29"
   }
