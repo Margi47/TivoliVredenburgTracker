@@ -51,9 +51,10 @@ export class WebService {
                 else{  
                     for(let val of response){
                         let timeText = val.day.split(" ");                     
-                        let day = parseInt(timeText[1]); 
-                        
-                        if (day >= curDate.getDate() || val.month > month){
+                        let day = parseInt(timeText[1]);
+
+                        //check for relevance
+                        if (day >= curDate.getDate() || month > curDate.getMonth()+1 || year > curDate.getFullYear()){
                             let name:string = s(val.title).decodeHTMLEntities().s;                   
                             var monthString = month<10?"0"+month.toString():month.toString(); 
                             var dayString = day<10?"0"+day.toString():day.toString();
