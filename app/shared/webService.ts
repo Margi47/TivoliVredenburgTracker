@@ -75,7 +75,6 @@ export class WebService {
     }
 
     getEventsByDate(page, year, month, category): Observable<any>{
-        console.log(month.toString());
         var monthString = month<10?"0"+month.toString():month.toString(); //adjusting month to xx format
         this.counterService.addNextPage();
         return this.http.get(`https://www.tivolivredenburg.nl/wp-admin/admin-ajax.php?action=get_events&page=${page}&maand=${year.toString()+monthString}&categorie=${category}`)

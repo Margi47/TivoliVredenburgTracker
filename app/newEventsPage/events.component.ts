@@ -12,7 +12,7 @@ import { CounterService } from "../shared/counterService";
         <NavigationButton text="Go Back"></NavigationButton>
         <ActionItem icon="res://ic_reorder" ios.position="right" (tap)="showDialog()"></ActionItem>
     </ActionBar>
-    <StackLayout>
+    <StackLayout style="margin-bottom: 2%">
         <events-list [events]="events$|async" [isLoading]="isLoading" [dialogShowing]="dialogShowing" [counter]="counter$|async"></events-list>
     </StackLayout>`
 })

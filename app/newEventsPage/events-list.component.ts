@@ -1,16 +1,12 @@
-import { Component, Input, OnChanges} from "@angular/core";
+import { Component, Input } from "@angular/core";
 
 @Component({
     selector: "events-list",
     templateUrl: "./newEventsPage/events-list.component.html"
 })
-export class EventsListComponent implements OnChanges{
+export class EventsListComponent{
     @Input() events: any[];
     @Input() isLoading: boolean;
     @Input() dialogShowing: boolean;
     @Input() counter: number[];
-
-    ngOnChanges(){
-        console.log(this.counter);
-    }
 }
