@@ -10,6 +10,7 @@ import { HistoryComponent } from "../historyPage/history.component";
 import { RecordsListComponent } from "../historyPage/records-list.component";
 import { WebService } from "./webService";
 import { FileSystemService } from "./fileSystemService";
+import { CounterService } from "./counterService";
 
 // Uncomment and add to NgModule imports if you need to use two-way binding
 // import { NativeScriptFormsModule } from "nativescript-angular/forms";
@@ -37,7 +38,8 @@ var Orientation = require("nativescript-orientation");
     ],
     providers: [
         WebService,
-        FileSystemService
+        FileSystemService,
+        CounterService
     ],
     schemas: [
         NO_ERRORS_SCHEMA

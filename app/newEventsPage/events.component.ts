@@ -3,24 +3,24 @@ import { FileSystemService } from "../shared/fileSystemService";
 import { Observable } from 'rxjs/Observable';
 import { RouterExtensions } from "nativescript-angular/router";
 import { action } from "ui/dialogs";
+import { CounterService } from "../shared/counterService";
 
 @Component({
     selector: "new-events",
     template: `
     <ActionBar [title]='categoryTitle'>
         <NavigationButton text="Go Back"></NavigationButton>
-        <ActionItem (tap)="showDialog()"
-            ios.systemIcon="12" ios.position="right"
-            android.systemIcon="ic_menu_search"></ActionItem>
+        <ActionItem icon="res://ic_reorder" ios.position="right" (tap)="showDialog()"></ActionItem>
     </ActionBar>
     <StackLayout>
-        <events-list [events]="events$|async" [isLoading]="isLoading" [dialogShowing]="dialogShowing"></events-list>
+        <events-list [events]="events$|async" [isLoading]="isLoading" [dialogShowing]="dialogShowing" [counter]="counter$|async"></events-list>
     </StackLayout>`
 })
 export class EventsComponent implements OnInit{
     events$: Observable<any>;
     isLoading: boolean;
     dialogShowing: boolean;
+    counter$: Observable<number>;
 
     categories: string[] = ["pop", "classic", "jazz", "by-night", "family", "other"];
     private _categoryTitle: string;
@@ -36,7 +36,9 @@ export class EventsComponent implements OnInit{
         this._categoryTitle = String().concat("New ", value.charAt(0).toUpperCase(), value.substring(1), " events"); 
     }
 
-    constructor(private fileService: FileSystemService, private routerExtensions: RouterExtensions){}
+    constructor(private fileService: FileSystemService, private routerExtensions: RouterExtensions, private counterService: CounterService){
+        this.counter$ = this.counterService.getPageCounter();
+    }
 
     ngOnInit(){
         this.showDialog();
@@ -60,7 +62,10 @@ export class EventsComponent implements OnInit{
                 });
             }
             else{
-                this.routerExtensions.back();
+                this.dialogShowing = false;
+                if(this.events$ == undefined){
+                    this.routerExtensions.back();
+                }
             }
         });
     }

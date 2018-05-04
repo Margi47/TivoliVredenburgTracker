@@ -7,14 +7,17 @@ import "rxjs/add/observable/of";
 import "rxjs/add/observable/empty";
 
 import { MusEvent } from "./musEvent";
+import { CounterService } from "./counterService";
 
 import * as s from "string";
 
 @Injectable()
 export class WebService {
-    constructor(private http: Http) {}
+    public counter:number;
+    constructor(private http: Http, private counterService: CounterService) {}
 
-    getAllEvents(category: string): Observable<MusEvent[]>{     
+    getAllEvents(category: string): Observable<MusEvent[]>{   
+        this.counterService.dropCounter();  
         let newEvents: MusEvent[] = [];
         let page = 1;
         let curDate = new Date();
@@ -74,6 +77,7 @@ export class WebService {
     getEventsByDate(page, year, month, category): Observable<any>{
         console.log(month.toString());
         var monthString = month<10?"0"+month.toString():month.toString(); //adjusting month to xx format
+        this.counterService.addNextPage();
         return this.http.get(`https://www.tivolivredenburg.nl/wp-admin/admin-ajax.php?action=get_events&page=${page}&maand=${year.toString()+monthString}&categorie=${category}`)
             .map(response => {
                 if(response.text() == "false"){

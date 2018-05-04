@@ -9,9 +9,7 @@ import { action } from "ui/dialogs";
     template: `
     <ActionBar [title]='categoryTitle'>
         <NavigationButton text="Go Back"></NavigationButton>
-        <ActionItem (tap)="showDialog()"
-            ios.systemIcon="12" ios.position="right"
-            android.systemIcon="ic_menu_search"></ActionItem>
+        <ActionItem icon="res://ic_reorder" ios.position="right" (tap)="showDialog()"></ActionItem>
     </ActionBar>
     <StackLayout>
         <records-list [records]="records$|async" [isLoading]="isLoading" [dialogShowing]="dialogShowing"></records-list>
@@ -55,12 +53,15 @@ export class HistoryComponent implements OnInit{
                 this.isLoading = true;
                 this.categoryTitle = result;
                 this.records$ = this.fileService.getHistory(result).map((records) => {
-                    this.isLoading = false;     
+                    this.isLoading = false;    
                     return records;
-                });;
+                });
             }
             else{
-                this.routerExtensions.back();
+                this.dialogShowing = false;
+                if(this.records$ == undefined){
+                    this.routerExtensions.back();
+                }
             }
         });
     }
