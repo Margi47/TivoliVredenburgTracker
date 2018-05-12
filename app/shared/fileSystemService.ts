@@ -71,8 +71,6 @@ export class FileSystemService {
                     this.oldRecords = [];
                     return [];
                 }
-            }).catch(err => {
-                console.log("file error");
             }));
     }
 
@@ -110,7 +108,9 @@ export class FileSystemService {
         let monthNum = date.getMonth() +1;
         let mm = monthNum<10?"0"+monthNum.toString():monthNum.toString();
         let yy = date.getFullYear();
-        let checkDate = yy.toString()+'/'+mm.toString()+'/'+dd.toString()
+        let checkDate = yy.toString()+'/'+mm.toString()+'/'+dd.toString();
+
+        console.log(date.getHours());
         let todayRecord:Record = {checkDate: checkDate, musEvents: events};
         this.oldRecords.push(todayRecord);
 
