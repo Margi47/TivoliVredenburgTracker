@@ -65,7 +65,7 @@ export class FileSystemService {
                 if(res.length > 0){
                     let result = JSON.parse(res);
                     this.oldRecords = result;
-                    return result.reverse();
+                    return result;
                 }
                 else{
                     this.oldRecords = [];
@@ -109,9 +109,8 @@ export class FileSystemService {
         let mm = monthNum<10?"0"+monthNum.toString():monthNum.toString();
         let yy = date.getFullYear();
         let checkDate = yy.toString()+'/'+mm.toString()+'/'+dd.toString();
-
-        console.log(date.getHours());
-        let todayRecord:Record = {checkDate: checkDate, musEvents: events};
+        let checkTime = date.toTimeString().substr(0, 8);
+        let todayRecord:Record = {checkDate: checkDate, checkTime: checkTime, musEvents: events};
         this.oldRecords.push(todayRecord);
 
         //pushes new updated array as a string
@@ -124,9 +123,11 @@ export class FileSystemService {
     getClearedData(month: number, year: number): Record[]{
         for(let rec of this.oldRecords){
             for(let eve of rec.musEvents){
-                let yy = parseInt(eve.date.substring(0,4));
-                let mm = parseInt(eve.date.substring(6,7));
-                if(yy < year || mm < month ){
+                let eventDate = eve.date.split('/');
+                let yy = parseInt(eventDate[0]);
+                let mm = parseInt(eventDate[1]);
+                if(yy < year || (mm < month && yy == year)){
+                    console.log(month.toString(), year.toString(), mm.toString(), yy.toString());
                     rec.musEvents.splice(rec.musEvents.indexOf(eve),1);
                 }
             }

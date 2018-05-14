@@ -54,7 +54,7 @@ export class HistoryComponent implements OnInit{
                 this.categoryTitle = result;
                 this.records$ = this.fileService.getHistory(result).map((records) => {
                     this.isLoading = false;    
-                    return records;
+                    return records.reverse();
                 });
             }
             else{
